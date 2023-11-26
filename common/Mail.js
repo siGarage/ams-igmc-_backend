@@ -6,8 +6,6 @@ export default {
     send: (to, message) => {
 
         let transporter = nodeMailer.createTransport({
-            // host: process.env.MAIL_HOST,
-            // port: process.env.MAIL_PORT,
             service:'gmail',
             secure: false,
             auth: {

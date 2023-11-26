@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
+    encryptPassword:{
+        type:String
+    },
     role: {
         type: String
     },

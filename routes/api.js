@@ -34,6 +34,9 @@ Router.post("/userLogin", UserController.userLogin);
 //LOGOUT
 Router.delete('/logout', Authentication, UserController.logout);
 
+//Forgot-Password
+Router.put('/forget-password', UserController.forgetPassword);
+
 //Create Group
 Router.post("/createGroup", Authentication, GroupController.createGroup);
 

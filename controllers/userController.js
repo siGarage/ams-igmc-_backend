@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import reply from '../common/reply.js';
 import Token from '../models/tokenModel.js';
 import crypto from 'crypto';
+import Mail from "../common/Mail.js";
 
 
 
@@ -34,18 +35,9 @@ export default {
             return res.json(reply.failed('This email is already exists!'));
         }
         try {
-            // if (request.role != 0) {
-            //     let user_email = request.email;
-            //     let user_password = request.password;
-            //     let hash_password = bcrypt.hashSync(user_password);
-            //     if ((exist) || !exist) {
-            //         request.password = hash_password
-            //         let updated = await User.create(request);
-            //         return res.json(reply.success("User Created Successfully!!", updated));
-            //     }
-            // }
+            request.encryptPassword = request.password;
             request.password = bcrypt.hashSync(request.password);
-            const user = await User.create(request)
+            const user = await User.create(request);
             return res.json(reply.success("User Created Successfully!!", user));
         } catch (err) {
             console.log("err", err)
@@ -102,6 +94,31 @@ export default {
             return res.json(reply.failed("Unable to logout!"))
         }
     },
+
+    //Forgot password
+    async forgetPassword(req, res) {
+        try {
+            let request = req.body;
+            let validation = new Validator(request, {
+                email: 'required|email'
+            });
+            if (validation.fails()) {
+                let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
+                return res.json(reply.failed(validation.errors.first(err_key)));
+            }
+            let user = await User.findOne({ email: request.email });
+            if (!user) {
+                return res.json(reply.failed("User Not Found"))
+            }
+            Mail.send(request.email, "" + `Your Password For Verifying: "${user.encryptPassword}"`);
+            return res.json(reply.success("Password send to your email successfully"));
+        }
+        catch (err) {
+            return res.json(reply.failed("some error occured", err))
+        }
+
+    },
+
 
 
 }

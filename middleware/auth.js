@@ -42,7 +42,7 @@ var Authentication = function (req, res, next) {
         if (!user) {
             return res.status(401).send(msg);
         }
-
+        
         req.user = user;
         req.token_id = decoded.tid;
         next();

@@ -1,11 +1,9 @@
 import express from "express";
 import UserController from "../controllers/userController.js";
 import Authentication from "../middleware/auth.js";
-import GroupController from "../controllers/GroupController.js";
-// import statusController from "../controllers/statusController.js";
+import GroupController from "../controllers/groupController.js";
 import multer from 'multer';
 import bodyParser from 'body-parser';
-// import PropertyTypeController from "../controllers/propertyTypeController.js";
 import fs from "fs";
 
 
@@ -24,6 +22,9 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // ##### User-Router #####
+
+//USER CREATE
+Router.post("/userCreate", UserController.userRegister);
 
 //USER CREATE
 Router.post("/userCreate", UserController.userRegister);

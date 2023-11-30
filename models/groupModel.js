@@ -2,10 +2,16 @@
 import mongoose from 'mongoose';
 
 const GroupSchema = new mongoose.Schema({
-    group_name: {
+    name: {
         type: String
-    }, 
+    },
     description: {
+        type: String
+    },
+    status: {
+        type: Boolean
+    },
+    members: {
         type: String
     },
     facultyAttedenceViewPermission: {

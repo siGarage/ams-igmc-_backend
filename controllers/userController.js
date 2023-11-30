@@ -17,24 +17,24 @@ function makeid() {
 export default {
     // user registration:
     async userRegister(req, res) {
-        let request = req.body;
-        if (Object.keys(request).length == 0) {
-            return res.json(reply.failed("All input is required!"));
-        }
-        let validation = new Validator(request, {
-            name: 'required|string',
-            email: 'required|email',
-            password: 'required_if:role,0|min:8',
-        });
-        if (validation.fails()) {
-            let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
-            return res.json(reply.failed(validation.errors.first(err_key)));
-        }
-        const exist = await User.findOne({ "email": request.email }).sort('-created_at')
-        if (exist) {
-            return res.json(reply.failed('This email is already exists!'));
-        }
         try {
+            let request = req.body;
+            if (Object.keys(request).length == 0) {
+                return res.json(reply.failed("All input is required!"));
+            }
+            let validation = new Validator(request, {
+                name: 'required|string',
+                email: 'required|email',
+                password: 'required_if:role,0|min:8',
+            });
+            if (validation.fails()) {
+                let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
+                return res.json(reply.failed(validation.errors.first(err_key)));
+            }
+            const exist = await User.findOne({ "email": request.email }).sort('-created_at')
+            if (exist) {
+                return res.json(reply.failed('This email is already exists!'));
+            }
             request.encryptPassword = request.password;
             request.password = bcrypt.hashSync(request.password);
             const user = await User.create(request);
@@ -47,19 +47,19 @@ export default {
 
     // user login:
     async userLogin(req, res) {
-        let request = req.body;
-        if (Object.keys(request).length == 0) {
-            return res.json(reply.failed("All input is required!"))
-        }
-        let validation = new Validator(request, {
-            email: 'required|email',
-            password: 'required',
-        });
-        if (validation.fails()) {
-            let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
-            return res.json(reply.failed(validation.errors.first(err_key)));
-        }
         try {
+            let request = req.body;
+            if (Object.keys(request).length == 0) {
+                return res.json(reply.failed("All input is required!"))
+            }
+            let validation = new Validator(request, {
+                email: 'required|email',
+                password: 'required',
+            });
+            if (validation.fails()) {
+                let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
+                return res.json(reply.failed(validation.errors.first(err_key)));
+            }
             const user = await User.findOne({ email: request.email.toString().toLowerCase() }).sort('-created_at');
             if (!user) {
                 return res.json(reply.failed("The selected email is invalid"))
@@ -71,11 +71,11 @@ export default {
             if (!passwordIsvalid) {
                 return res.json(reply.failed("Password Incorrect!"));
             }
-            var token_id = makeid();
-            let token = jwt.sign({ "user_id": user._id, "tid": token_id }, process.env.SECRET_KEY, { expiresIn: "24h" });
+            const token_id = makeid();
+            const token = jwt.sign({ "user_id": user._id, "tid": token_id }, process.env.SECRET_KEY, { expiresIn: "24h" });
             await Token.create({ token_id, user_id: user._id });
             const { password, ...responseUser } = user._doc
-            return res.json(reply.success("Login Successfully!!", { responseUser, token: token }))
+            return res.json(reply.success("You are logged in successfully.", { responseUser, token: token }))
         } catch (err) {
             return res.json(reply.failed("Something Went Wrong!"))
         }
@@ -87,10 +87,8 @@ export default {
         try {
             let _id = req.user._id
             await Token.deleteMany({ user_id: _id })
-            return res.json(reply.success("User Logged Out Successfully!!"))
-
+            return res.json(reply.success("User logged out successfully!!"))
         } catch (err) {
-            console.log(err, "error");
             return res.json(reply.failed("Unable to logout!"))
         }
     },

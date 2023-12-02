@@ -1,29 +1,29 @@
-import STUDENT from "../models/studentModel.js";
+import TEACHER from "../models/teacherModel.js";
 import Validator from "validatorjs";
 import reply from '../common/reply.js';
 
 export default {
 
-    //Student create
-    async createStudent(req, res) {
+    //Teacher create
+    async createTeacher(req, res) {
         try {
             let request = req.body;
-            let exist = await STUDENT.findOne({ "email": request.email });
+            let exist = await TEACHER.findOne({ "email": request.email });
             if (exist) {
                 return res.status(403).send({ message: 'This email is already exists!' });
             }
-            let student = await STUDENT.create(request);
-            return res.status(201).send({ student: student, message: "Student created successfully" });
+            let teacher = await TEACHER.create(request);
+            return res.status(201).send({ teacher: teacher, message: "Teacher created successfully" });
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
     },
 
 
-    // Get Student List
-    async getStudentList(req, res) {
+    // Get Teacher List
+    async getTeacherList(req, res) {
         try {
-            let students = await STUDENT.find();
+            let students = await TEACHER.find();
             return res.status(200).json(students);
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
@@ -31,21 +31,21 @@ export default {
     },
 
 
-    // Delete Student
-    async deleteStudent(req, res) {
+    // Delete Teacher
+    async deleteTeacher(req, res) {
         try {
             let id = req.body.id;
-            const student = await STUDENT.findByIdAndRemove(id);
-            if (!student) {
-                return res.status(404).send({ message: "Student not found." })
+            const teacher = await TEACHER.findByIdAndRemove(id);
+            if (!teacher) {
+                return res.status(404).send({ message: "Teacher not found." })
             }
-            return res.status(204).send({ id: id, message: "Student deleted successfully." })
+            return res.status(204).send({ id: id, message: "Teacher deleted successfully." })
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
     },
 
-    //Update Student
+    //Update Teacher
     // async updateStudent(req, res) {
     //     try {
     //         let request = req.body;

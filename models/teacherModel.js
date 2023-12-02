@@ -1,45 +1,36 @@
 
 import mongoose from 'mongoose';
 
-const StudentSchema = new mongoose.Schema({
+const TeacherSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    roll_no: {
-        type: Number
-    },
     avatar: {
-        type: String
-    },
-    father_name: {
         type: String
     },
     phone_no: {
         type: Number,
-        required:true
+        required: true
     },
-    guardian_no: {
-        type: Number,
-        required:true
+    alternate_no: {
+        type: Number
     },
     current_address: {
         type: String
     },
     permeanent_address: {
         type: String,
-        requried:true
+        requried: true
     },
-    batch: {
-        type: Number
+    department_id: {
+        type: String,
+        required: true
+    },
+    designation: {
+        type: String
     },
     user_id: {
-        type: String
-    },
-    course_id: {
-        type: String
-    },
-    semester_id: {
         type: String
     },
     dob: {
@@ -50,7 +41,7 @@ const StudentSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required:true
+        required: true
     },
     notes: {
         type: String
@@ -62,6 +53,6 @@ const StudentSchema = new mongoose.Schema({
     { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
-const Student = mongoose.model('students', StudentSchema)
+const Teacher = mongoose.model('teachers', TeacherSchema)
 
-export default Student;
+export default Teacher;

@@ -35,7 +35,6 @@ export default {
             if (exist) {
                 return res.json(reply.failed('This email is already exists!'));
             }
-            request.encryptPassword = request.password;
             request.password = bcrypt.hashSync(request.password);
             const user = await User.create(request);
             return res.json(reply.success("User Created Successfully!!", user));
@@ -108,8 +107,20 @@ export default {
             if (!user) {
                 return res.json(reply.failed("User Not Found"))
             }
-            Mail.send(request.email, "" + `Your Password For Verifying: "${user.encryptPassword}"`);
-            return res.json(reply.success("Password send to your email successfully"));
+            const randomstring = Math.random().toString(36).slice(-8);
+            let newPassword = bcrypt.hashSync(randomstring);
+            let userUpdate = await User.findByIdAndUpdate(
+                { _id: user._id },
+                {
+                    $set: {
+                        password: newPassword
+                    },
+                }
+            );
+            Mail.send(request.email, "" + `Your Password For Verifying: "${randomstring}"`);
+            if (userUpdate) {
+                return res.json(reply.success("Password send to your email successfully"));
+            }
         }
         catch (err) {
             return res.json(reply.failed("some error occured", err))

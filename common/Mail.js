@@ -28,5 +28,6 @@ export default {
             }
             console.log('Message %s sent: %s', info.messageId, info.response);
         });
-    }
+    },
+
 }

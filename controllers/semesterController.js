@@ -20,10 +20,10 @@ export default {
                 let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
                 return res.json(reply.failed(validation.errors.first(err_key)));
             }
-            const courseIdFilter = await SEMESTER.findOne({
+            const exist = await SEMESTER.findOne({
                 $and: [{ course_id: request.course_id }, { number: request.number }]
             });
-            if (courseIdFilter) {
+            if (exist) {
                 return res.status(403).send({ message: 'This semester is already exist for this perticular course.' });
             }
             let semester = await SEMESTER.create(request);

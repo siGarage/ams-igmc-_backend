@@ -7,7 +7,8 @@ const StudentSchema = new mongoose.Schema({
         required: true
     },
     roll_no: {
-        type: Number
+        type: Number,
+        required:true
     },
     avatar: {
         type: String
@@ -26,7 +27,7 @@ const StudentSchema = new mongoose.Schema({
     current_address: {
         type: String
     },
-    permeanent_address: {
+    permanent_address: {
         type: String,
         requried:true
     },

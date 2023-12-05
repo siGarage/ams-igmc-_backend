@@ -57,7 +57,7 @@ Router.delete("/deleteGroup", Authentication, GroupController.deleteGroup);
 
 //-----------------------------STUDENT_ROUTES-------------------------//
 //Create Student
-Router.post("/createStudent", Authentication, StudentController.createStudent);
+Router.post("/createStudent", Authentication,upload.single('avatar'), StudentController.createStudent);
 
 //Get Students
 Router.get("/getStudents", Authentication, StudentController.getStudentList);

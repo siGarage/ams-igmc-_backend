@@ -8,6 +8,21 @@ export default {
     async createStudent(req, res) {
         try {
             let request = req.body;
+            if (Object.keys(request).length == 0) {
+                return res.json(reply.failed("All input is required!"));
+            }
+            request.avatar = req?.file == undefined ? null : req?.file?.filename != undefined && req?.file?.filename;
+            let validation = new Validator(request, {
+                name: 'required|string',
+                email: 'required|email',
+                phone_no: 'required',
+                guardian_no:'required',
+                permanent_address:'required'
+            });
+            if (validation.fails()) {
+                let err_key = Object.keys(Object.entries(validation.errors)[0][1])[0];
+                return res.json(reply.failed(validation.errors.first(err_key)));
+            }
             let exist = await STUDENT.findOne({ "email": request.email });
             if (exist) {
                 return res.status(403).send({ message: 'This email is already exists!' });

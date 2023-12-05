@@ -1,30 +1,18 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    name: {
-        type: String
-    },
-    father_name: {
-        type: String
-    },
     email: {
         type: String,
         allowNull: false
     },
-    roll_no: {
-        type: Number,
-    },
     password: {
         type: String
     },
-    encryptPassword:{
-        type:String
-    },
-    role: {
+    group: {
         type: String
-    },
-    course: {
-        type: String
+    }, 
+    status: {
+        type: Boolean
     }
 
 },

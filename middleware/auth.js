@@ -6,11 +6,6 @@ import Token from "../models/tokenModel.js";
 var Authentication = function (req, res, next) {
 
     let token = req.headers.authorization;
-    token = token?.split(' ')[1] || null;
-    const msg = { auth: false, message: 'You are not autherised.' };
-    if (!token) {
-        return res.status(401).send(msg);
-    };
     jwt.verify(token, process.env.SECRET_KEY, async function (err, decoded) {
         if (err) {
             return res.status(401).send(msg);
@@ -34,4 +29,4 @@ var Authentication = function (req, res, next) {
         next();
     });
 }
-export default  Authentication 
+export default Authentication 

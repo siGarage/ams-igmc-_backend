@@ -7,7 +7,8 @@ const SemesterSchema = new mongoose.Schema({
         required: true
     },
     course_id: {
-        type: String
+        type: String,
+        required: true
     },
     subjects: {
         type: Array

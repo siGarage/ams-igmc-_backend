@@ -53,6 +53,25 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
+    },
+
+    // Update Group
+    async updateGroup(req, res) {
+        try {
+            let request = req.body
+            if (!request) {
+                return res.send("All input is required!");
+            }
+            let _id = req.body.id;
+            const group = await GROUP.findById(_id);
+            if (!group) {
+                return res.status(404).send({ message:"Group not found" });
+            }
+            await GROUP.findByIdAndUpdate(_id, request);
+            return res.status(201).send({ message: "Group updated successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
     }
 
 

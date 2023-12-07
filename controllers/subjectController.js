@@ -53,6 +53,25 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
+    },
+
+    // Update Subject
+    async updateSubject(req, res) {
+        try {
+            let request = req.body
+            if (!request) {
+                return res.send("All input is required!");
+            }
+            let _id = req.body.id;
+            const subject = await SUBJECT.findById(_id);
+            if (!subject) {
+                return res.status(404).send({ message:"Subject not found" });
+            }
+            await SUBJECT.findByIdAndUpdate(_id, request);
+            return res.status(201).send({ message: "Subject updated successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
     }
 
 

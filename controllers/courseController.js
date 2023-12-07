@@ -54,6 +54,25 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
+    },
+    
+    // Update Course
+    async updateCourse(req, res) {
+        try {
+            let request = req.body
+            if (!request) {
+                return res.send("All input is required!");
+            }
+            let _id = req.body.id;
+            const course = await COURSE.findById(_id);
+            if (!course) {
+                return res.status(404).send({ message: "Course not found" });
+            }
+            await COURSE.findByIdAndUpdate(_id, request);
+            return res.status(201).send({ message: "Course updated successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
     }
 
 

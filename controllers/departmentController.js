@@ -54,6 +54,25 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
+    },
+
+    // Update Department
+    async updateDepartment(req, res) {
+        try {
+            let request = req.body
+            if (!request) {
+                return res.send("All input is required!");
+            }
+            let _id = req.body.id;
+            const department = await DEPARTMENT.findById(_id);
+            if (!department) {
+                return res.status(404).send({ message: "Department not found" });
+            }
+            await DEPARTMENT.findByIdAndUpdate(_id, request);
+            return res.status(201).send({ message: "Department updated successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
     }
 
 

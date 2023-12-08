@@ -55,9 +55,15 @@ Router.get("/getGroups", Authentication, GroupController.getGroupList);
 //Delete Group
 Router.delete("/deleteGroup", Authentication, GroupController.deleteGroup);
 
+//Update Group
+Router.put("/updateGroup", Authentication, GroupController.updateGroup);
+
+//Get Group By Id
+Router.post("/getGroupById", Authentication, GroupController.getGroupById);
+
 //-----------------------------STUDENT_ROUTES-------------------------//
 //Create Student
-Router.post("/createStudent", Authentication,upload.single('avatar'), StudentController.createStudent);
+Router.post("/createStudent", Authentication, upload.single('avatar'), StudentController.createStudent);
 
 //Get Students
 Router.get("/getStudents", Authentication, StudentController.getStudentList);
@@ -65,6 +71,8 @@ Router.get("/getStudents", Authentication, StudentController.getStudentList);
 //Delete Student
 Router.delete("/deleteStudent", Authentication, StudentController.deleteStudent);
 
+//Get Student By Id
+Router.post("/getStudentById", Authentication, StudentController.getStudentById);
 //-----------------------------TEACHER_ROUTES-------------------------//
 //Create Teacher
 Router.post("/createTeacher", Authentication, TeacherController.createTeacher);
@@ -75,6 +83,8 @@ Router.get("/getTeachers", Authentication, TeacherController.getTeacherList);
 //Delete Teacher
 Router.delete("/deleteTeacher", Authentication, TeacherController.deleteTeacher);
 
+//Get Teacher By Id
+Router.post("/getTeacherById", Authentication, TeacherController.getTeacherById);
 //-----------------------------BIOMETRIC_ROUTES-------------------------//
 //Create Biometric
 Router.post("/createBiometric", Authentication, BiometricController.createBiometric);
@@ -84,6 +94,12 @@ Router.get("/getBiometrics", Authentication, BiometricController.getBiometricLis
 
 //Delete Biometric
 Router.delete("/deleteBiometric", Authentication, BiometricController.deleteBiometric);
+
+//Update Biometric
+Router.put("/updateBiometric", Authentication, BiometricController.updateBiometric);
+
+//Get Biometric By Id
+Router.post("/getBiometricById", Authentication, BiometricController.getBiometricById);
 
 //-----------------------------DEPARTMENT_ROUTES-------------------------//
 //Create Department
@@ -95,6 +111,11 @@ Router.get("/getDepartments", Authentication, DepartmentController.getDepartment
 //Delete Department
 Router.delete("/deleteDepartment", Authentication, DepartmentController.deleteDepartment);
 
+//Update Department
+Router.put("/updateDepartment", Authentication, DepartmentController.updateDepartment);
+
+//Get Department By Id
+Router.post("/getDepartmentById", Authentication, DepartmentController.getDepartmentById);
 //-----------------------------SUBJECT_ROUTES-------------------------//
 //Create Subject
 Router.post("/createSubject", Authentication, SubjectController.createSubject);
@@ -105,15 +126,27 @@ Router.get("/getSubjects", Authentication, SubjectController.getSubjectList);
 //Delete Subject
 Router.delete("/deleteSubject", Authentication, SubjectController.deleteSubject);
 
+//Update Subject
+Router.put("/updateSubject", Authentication, SubjectController.updateSubject);
+
+//Get Subject By Id
+Router.post("/getSubjectById", Authentication, SubjectController.getSubjectById);
+
 //-----------------------------COURSE_ROUTES-------------------------//
-//Create Semester
+//Create Courses
 Router.post("/createCourse", Authentication, CourseController.createCourse);
 
 //Get Courses
 Router.get("/getCourses", Authentication, CourseController.getCourseList);
 
-//Delete Semester
+//Delete Courses
 Router.delete("/deleteCourse", Authentication, CourseController.deleteCourse);
+
+//Update Courses
+Router.put("/updateCourse", Authentication, CourseController.updateCourse);
+
+//Get Courses By Id
+Router.post("/getCourseById", Authentication, CourseController.getCourseById);
 
 //-----------------------------SEMESTER_ROUTES-------------------------//
 //Create Semester
@@ -124,5 +157,11 @@ Router.get("/getSemesters", Authentication, SemesterController.getSemesterList);
 
 //Delete Semester
 Router.delete("/deleteSemester", Authentication, SemesterController.deleteSemester);
+
+//Update Semester
+Router.put("/updateSemester", Authentication, SemesterController.updateSemester);
+
+//Get Semester By Id
+Router.post("/getSemesterById", Authentication, SemesterController.getSemesterById);
 
 export default Router;

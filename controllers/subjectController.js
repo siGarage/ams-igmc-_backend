@@ -72,6 +72,17 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }
+    },
+
+
+    // Get Subject By Id
+    async getSubjectById(req, res) {
+        try {
+            const subject = await SUBJECT.findById(req.body.id);
+            return res.status(200).json(subject);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
     }
 
 

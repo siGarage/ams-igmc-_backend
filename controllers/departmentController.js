@@ -73,7 +73,19 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }
-    }
+    },
+
+    // Get Department By Id
+    async getDepartmentById(req, res) {
+        try {
+            const department = await DEPARTMENT.findById(req.body.id);
+            return res.status(200).json(department);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
+    },
+
+    
 
 
 }

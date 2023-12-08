@@ -72,6 +72,16 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }
+    },
+
+    // Get Group By Id
+    async getGroupById(req, res) {
+        try {
+            const group = await GROUP.findById(req.body.id);
+            return res.status(200).json(group);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
     }
 
 

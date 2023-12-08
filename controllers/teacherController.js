@@ -82,6 +82,15 @@ export default {
     //         console.log(err);
     //         return res.status(400).send(err)
     //     }
-    // }
+    // },
 
+    // Get teacher By Id
+    async getTeacherById(req, res) {
+        try {
+            const teacher = await TEACHER.findById(req.body.id);
+            return res.status(200).json(teacher);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
+    }
 }

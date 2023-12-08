@@ -57,7 +57,41 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })
         }
-    }
+    },
 
+    // Update Semester
+    async updateSemester(req, res) {
+        try {
+            let request = req.body
+            if (!request) {
+                return res.send("All input is required!");
+            }
+            let _id = req.body.id;
+            const semester = await SEMESTER.findById(_id);
+            if (!semester) {
+                return res.status(404).send({ message: "Semester not found" });
+            };
+            const exist = await SEMESTER.findOne({
+                $and: [{ course_id: request.course_id }, { number: request.number }]
+            });
+            if (exist) {
+                return res.status(403).send({ message: 'This semester is already exist for this perticular course.' });
+            }
+            await SEMESTER.findByIdAndUpdate(_id, request);
+            return res.status(201).send({ message: "Semester updated successfully" });
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" });
+        }
+    },
+
+    // Get Semester By Id
+    async getSemesterById(req, res) {
+        try {
+            const semester = await SEMESTER.findById(req.body.id);
+            return res.status(200).json(semester);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
+    }
 
 }

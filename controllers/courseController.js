@@ -73,6 +73,16 @@ export default {
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" });
         }
+    },
+
+    // Get Course By Id
+    async getCourseById(req, res) {
+        try {
+            const course = await COURSE.findById(req.body.id);
+            return res.status(200).json(biometric);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
     }
 
 

@@ -125,7 +125,6 @@ export default {
         catch (err) {
             return res.json(reply.failed("some error occured", err))
         }
-
     },
 
 

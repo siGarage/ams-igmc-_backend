@@ -65,5 +65,15 @@ export default {
         }
     },
 
+    // Get Biometric By Id
+    async getBiometricById(req, res) {
+        try {
+            const biometric = await BIOMETRIC.findById(req.body.id);
+            return res.status(200).json(biometric);
+        } catch (err) {
+            return res.status(500).send({ message: "Internal Server Error" })
+        }
+    }
+
 
 }

@@ -9,6 +9,8 @@ import DepartmentController from "../controllers/departmentController.js";
 import SubjectController from "../controllers/subjectController.js";
 import CourseController from "../controllers/courseController.js";
 import SemesterController from "../controllers/semesterController.js";
+import StudentAttendenceController from "../controllers/studentAttendeceController.js";
+import TeacherAttendenceController from "../controllers/teacherAttendenceController.js";
 import multer from 'multer';
 import bodyParser from 'body-parser';
 import fs from "fs";
@@ -29,9 +31,6 @@ var storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 // ##### User-Router #####
-
-//USER CREATE
-Router.post("/userCreate", UserController.userRegister);
 
 //USER CREATE
 Router.post("/userCreate", UserController.userRegister);
@@ -163,5 +162,38 @@ Router.put("/updateSemester", Authentication, SemesterController.updateSemester)
 
 //Get Semester By Id
 Router.post("/getSemesterById", Authentication, SemesterController.getSemesterById);
+
+//-----------------------------STUDENT_ATTENDENCE_ROUTES-------------------------//
+//Create Student Attendence
+Router.post("/createStudentAttendence", Authentication, StudentAttendenceController.createStudentAttendence);
+
+//Get Student Attendences
+Router.get("/getStudentAttendences", Authentication, StudentAttendenceController.getStudentAttendenceList);
+
+//Delete Student Attendence
+Router.delete("/deleteStudentAttendence", Authentication, StudentAttendenceController.deleteStudentAttendence);
+
+//Update Student Attendence
+Router.put("/updateStudentAttendence", Authentication, StudentAttendenceController.updateStudentAttendence);
+
+//Get Student Attendence By Id
+Router.post("/getStudentAttendenceById", Authentication, StudentAttendenceController.getStudentAttendenceById);
+
+
+//-----------------------------TECAHER_ATTENDENCE_ROUTES-------------------------//
+//Create Student Attendence
+Router.post("/createTeacherAttendence", Authentication, TeacherAttendenceController.createTeacherAttendence);
+
+//Get Teacher Attendences
+Router.get("/getTeacherAttendences", Authentication, TeacherAttendenceController.getTeacherAttendenceList);
+
+//Delete Teacher Attendence
+Router.delete("/deleteTeacherAttendence", Authentication, TeacherAttendenceController.deleteTeacherAttendence);
+
+//Update Teacher Attendence
+Router.put("/updateTeacherAttendence", Authentication, TeacherAttendenceController.updateTeacherAttendence);
+
+//Get Teacher Attendence By Id
+Router.post("/getTeacherAttendenceById", Authentication, TeacherAttendenceController.getTeacherAttendenceById);
 
 export default Router;

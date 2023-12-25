@@ -43,29 +43,9 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-var server = http.createServer(app);
-
-
-
-// const whitelist =[
-//   'http://localhost:3000',
-//   'https://admissionjockey.in',
-// ]
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin || whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error("Not allowed by CORS"))
-//     }
-//   },
-//   credentials: true,
-// }
-
 
 app.use(Router);
 app.disable('x-powered-by');
 
-server.listen(port, () => {
-  console.log(`App is listening at http://localhost:${port}`);
-})
+
+app.listen(4500);

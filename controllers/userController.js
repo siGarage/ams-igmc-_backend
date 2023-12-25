@@ -7,8 +7,6 @@ import Token from '../models/tokenModel.js';
 import crypto from 'crypto';
 import Mail from "../common/Mail.js";
 
-
-
 function makeid() {
     return crypto.randomBytes(20).toString('hex');
 }
@@ -73,8 +71,8 @@ export default {
             const token_id = makeid();
             const token = jwt.sign({ "user_id": user._id, "tid": token_id }, process.env.SECRET_KEY, { expiresIn: "24h" });
             await Token.create({ token_id, user_id: user._id });
-            const { password, ...responseUser } = user._doc
-            return res.json(reply.success("You are logged in successfully.", { responseUser, token: token }))
+            const { password, ...responseUser } = user._doc;
+            return res.json(reply.success("You are logged in successfully.", { responseUser,token:token }));
         } catch (err) {
             return res.json(reply.failed("Something Went Wrong!"))
         }
